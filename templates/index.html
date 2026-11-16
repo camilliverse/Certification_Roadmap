@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>CertTracker 2027</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>CertTracker</h2>
+
+    <ul>
+
+        <li>Dashboard</li>
+        <li>GitHub</li>
+        <li>AZ-900</li>
+        <li>PCEP</li>
+        <li>PCAP</li>
+        <li>Finanças</li>
+
+    </ul>
+
+</div>
+
+<div class="main">
+
+    <header>
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Pesquisar certificação..."
+        >
+
+        <button id="theme-toggle">
+            🌙
+        </button>
+
+    </header>
+
+    <h1>Dashboard Geral</h1>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Progresso Médio</h3>
+            <p>{{ total_progress }}%</p>
+        </div>
+
+        <div class="card">
+            <h3>Total Provas</h3>
+            <p>R$ {{ total_cost }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Economizado</h3>
+            <p>R$ {{ saved }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Falta</h3>
+            <p>R$ {{ remaining }}</p>
+        </div>
+
+    </div>
+
+    <div id="certifications">
+
+        {% for cert in certifications %}
+
+        <div class="cert-card">
+
+            <h2>{{ cert.name }}</h2>
+
+            <p>Valor: R$ {{ cert.price_brl }}</p>
+
+            <p>Progresso: {{ cert.progress }}%</p>
+
+            <div class="progress">
+
+                <div
+                    class="fill"
+                    style="width: {{ cert.progress }}%;"
+                ></div>
+
+            </div>
+
+            <h4>Tópicos</h4>
+
+            <ul>
+
+                {% for topic in cert.topics %}
+                <li>{{ topic }}</li>
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
